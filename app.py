@@ -1,3 +1,4 @@
+from enum import Enum
 from fastapi import FastAPI
 from pydantic import BaseModel
 from model.model import SentimentModel
@@ -7,6 +8,22 @@ model = SentimentModel()
 
 class TextInput(BaseModel):
     text: str
+
+@app.get("/")
+def root():
+    return {"message" : "Hello World"}
+
+@app.get("/home")
+def home():
+    return {"message" : "home"}
+
+@app.get("/home/{name}")
+def read_name(name: str):
+    return {"name" : name}
+
+@app.post("/")
+def home_posst(msg: str):
+    return {"Hello" : "POST", "msg" : msg}
 
 @app.post("/predict")
 async def predict_sentiment(input: TextInput):
